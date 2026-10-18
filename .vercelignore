@@ -1,0 +1,22 @@
+# Never upload secrets or real user data. These files are also never served
+# over HTTP (the server refuses /data/*), but they should not be deployed at
+# all. data/events.json is intentionally kept — it is public tournament
+# information and is bundled into the Vercel function.
+node_modules
+.env
+.env.local
+.env.*.local
+
+data/users.json
+data/users.json.*
+data/applications.json
+data/applications.json.*
+data/.secret
+data/.secret.*
+
+# Dev-only test suite (not needed at runtime)
+tests
+
+*.log
+.DS_Store
+Thumbs.db

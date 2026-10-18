@@ -1,0 +1,15 @@
+{
+  "name": "relm-sports",
+  "version": "1.0.0",
+  "private": true,
+  "description": "RELM Sports replica — static site with working accounts and tournament applications, deployable to Vercel.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node tests/run.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

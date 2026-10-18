@@ -1,0 +1,174 @@
+[
+  {
+    "id": "bmha",
+    "title": "BMHA Mid-Season Tilt",
+    "date": "30 Oct 2026 to 1 Nov 2026",
+    "location": "Belleville, Ontario",
+    "groups": ["U10A", "U11A", "U12A", "U13A", "U14A", "U15A", "U16A", "U18A"],
+    "image": "https://relmsports.com/wp-content/uploads/2025/06/Belleville_Mid_Season.jpg",
+    "category": "hockey",
+    "cost": 1975,
+    "costLabel": "$1,975 per team",
+    "deposit": 790,
+    "fees": [
+      { "label": "Registration", "value": "$1,975 per team" },
+      { "label": "Deposit", "value": "40% non-refundable deposit due at registration" },
+      { "label": "Final payment", "value": "If applying for an event that is 90 days or less away, full payment is required at registration." },
+      { "label": "Payment options", "value": "We accept EMT and Cheque (no additional fees). Credit card payments are available but will incur a 4% transaction fee." }
+    ],
+    "detail": {
+      "ages": "U10-U18",
+      "levels": "A",
+      "sanction": "39501",
+      "gameGuarantee": "4 Games",
+      "contact": "Tournament Director: relmtournaments@outlook.com"
+    }
+  },
+  {
+    "id": "adult",
+    "title": "Adult Hockey Classic",
+    "date": "30 Apr 2027 to 2 May 2027",
+    "location": "Kingston, ON",
+    "groups": ["D Division", "Men's 30+", "Men's 40+", "Men's B", "Men's C", "Women's A", "Women's B", "Women's C"],
+    "image": "https://relmsports.com/wp-content/uploads/2025/10/adult-hockey-classic-cur.png",
+    "category": "adult",
+    "cost": 1500,
+    "costLabel": "$1,500 per team",
+    "deposit": 600,
+    "fees": [
+      { "label": "Registration", "value": "$1,500 per team" },
+      { "label": "Deposit", "value": "40% non-refundable deposit due at registration" },
+      { "label": "Final payment", "value": "If applying for an event that is 90 days or less away, full payment is required at registration." }
+    ],
+    "detail": {
+      "ages": "Adult",
+      "levels": "Men's and Women's divisions",
+      "sanction": "N/A",
+      "gameGuarantee": "3 Games",
+      "contact": "Tournament Director: relmtournaments@outlook.com"
+    }
+  },
+  {
+    "id": "spring-cup",
+    "title": "RELM Spring Cup (House League)",
+    "date": "7 May 2027 to 9 May 2027",
+    "location": "Kingston, ON",
+    "groups": ["Boys U9", "Boys U11", "Boys U13", "Boys U15", "Boys U18", "Girls U9", "Girls U11", "Girls U13"],
+    "image": "https://relmsports.com/wp-content/uploads/2025/10/RELM-Spring-Cup-Green.png",
+    "category": "hockey",
+    "cost": 1600,
+    "costLabel": "$1,600 per team",
+    "deposit": 640,
+    "fees": [
+      { "label": "Registration", "value": "$1,600 per team" },
+      { "label": "Deposit", "value": "40% non-refundable deposit due at registration" },
+      { "label": "Final payment", "value": "If applying for an event that is 90 days or less away, full payment is required at registration." }
+    ],
+    "detail": {
+      "ages": "2010-2020",
+      "levels": "House League, Local League",
+      "sanction": "N/A",
+      "gameGuarantee": "4 Games",
+      "contact": "Tournament Director: relmtournaments@outlook.com"
+    }
+  },
+  {
+    "id": "boys-showcase",
+    "title": "Ontario Prospects Junior Boys Showcase",
+    "date": "7 May 2027 to 9 May 2027",
+    "location": "Kingston, ON",
+    "groups": ["2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015"],
+    "image": "https://relmsports.com/wp-content/uploads/2025/10/LOGO-Ontario-Prospects-Hockey-Challenge.png",
+    "category": "showcase",
+    "cost": 2250,
+    "costLabel": "$2,250 per team",
+    "deposit": 900,
+    "perPlayer": 250,
+    "perPlayerLabel": "$250 per player",
+    "fees": [
+      { "label": "Registration", "value": "$2,250 per team" },
+      { "label": "Individual registration", "value": "$250 per player (email relmtournaments@outlook.com to express interest)" },
+      { "label": "Deposit", "value": "40% non-refundable deposit due at registration" },
+      { "label": "Final payment", "value": "If applying for an event that is 90 days or less away, full payment is required at registration." }
+    ],
+    "detail": {
+      "ages": "2006-2015",
+      "levels": "AA, AAA",
+      "sanction": "N/A",
+      "gameGuarantee": "4 Games",
+      "contact": "Tournament Director: relmtournaments@outlook.com"
+    }
+  },
+  {
+    "id": "girls-challenge",
+    "title": "Ontario Prospects Girls Hockey Challenge",
+    "date": "14 May 2027 to 16 May 2027",
+    "location": "Kingston, ON",
+    "groups": ["2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"],
+    "image": "https://relmsports.com/wp-content/uploads/2025/10/LOGO-Ontario-Prospects-Hockey-Challenge.png",
+    "category": "showcase",
+    "cost": 1950,
+    "costLabel": "$1,950 per team",
+    "deposit": 780,
+    "fees": [
+      { "label": "Registration", "value": "$1,950 per team" },
+      { "label": "Deposit", "value": "40% non-refundable deposit due at registration" },
+      { "label": "Final payment", "value": "If applying for an event that is 90 days or less away, full payment is required at registration." }
+    ],
+    "detail": {
+      "ages": "2010-2020",
+      "levels": "A, AA, B",
+      "sanction": "N/A",
+      "gameGuarantee": "4 Games",
+      "contact": "Tournament Director: relmtournaments@outlook.com"
+    }
+  },
+  {
+    "id": "ringette",
+    "title": "Ontario Prospects Ringette Invitational",
+    "date": "21 May 2027 to 23 May 2027",
+    "location": "Kingston & Napanee, ON",
+    "groups": ["Open/19+", "U10 Mixed", "U12A", "U12B", "U14A", "U14AA", "U14B", "U16A", "U16AA", "U16B", "U19A", "U19B"],
+    "image": "https://relmsports.com/wp-content/uploads/2025/10/Untitled-design.png",
+    "category": "ringette",
+    "cost": 1950,
+    "costLabel": "$1,950 per team",
+    "deposit": 780,
+    "fees": [
+      { "label": "Registration", "value": "$1,950 per team" },
+      { "label": "Deposit", "value": "40% non-refundable deposit due at registration" },
+      { "label": "Final payment", "value": "If applying for an event that is 90 days or less away, full payment is required at registration." }
+    ],
+    "detail": {
+      "ages": "2010-2017",
+      "levels": "A, AA, B",
+      "sanction": "N/A",
+      "gameGuarantee": "4 Games",
+      "contact": "Tournament Director: relmtournaments@outlook.com"
+    }
+  },
+  {
+    "id": "d3",
+    "title": "Ontario Prospects D3 Boys Hockey Challenge",
+    "date": "28 May 2027 to 30 May 2027",
+    "location": "Kingston, ON",
+    "groups": ["2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"],
+    "image": "https://relmsports.com/wp-content/uploads/2025/10/LOGO-Ontario-Prospects-Hockey-Challenge.png",
+    "category": "showcase",
+    "cost": 2250,
+    "costLabel": "$2,250 per team",
+    "deposit": 900,
+    "fees": [
+      { "label": "Registration", "value": "$2,250 per team" },
+      { "label": "Deposit", "value": "40% non-refundable deposit due at registration" },
+      { "label": "Final payment", "value": "If applying for an event that is 90 days or less away, full payment is required at registration." }
+    ],
+    "detail": {
+      "ages": "2013-2020",
+      "levels": "A, B, D3",
+      "sanction": "N/A",
+      "gameGuarantee": "4 Games",
+      "contact": "Tournament Director: relmtournaments@outlook.com"
+    }
+  }
+]
