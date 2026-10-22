@@ -196,13 +196,16 @@
 
   /* --------------------------------------------------------------- init */
 
+  // Route guard: anyone who is not signed in as an administrator is sent to
+  // the unlinked admin sign-in page. The data itself is also protected
+  // server-side (/api/admin/* requires the admin role).
   RELM.me().then(function (user) {
     if (!user || user.role !== "admin") {
-      gate.hidden = false;
-      dashboard.hidden = true;
+      window.location.replace("/admin/login");
       return;
     }
     dashboard.hidden = false;
+    if (gate) gate.hidden = true;
     load().catch(function (err) {
       RELM.toast(err.message, "error");
     });

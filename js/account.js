@@ -242,6 +242,17 @@
       });
   });
 
+  /* ------------------------------------------------------ route guard --- */
+
+  // /account/applications is a private view: without a session it redirects to
+  // the sign-in form. The API endpoints behind it already require a token.
+  var PRIVATE_PATHS = ["/account/applications", "/account/applications.html"];
+  if (PRIVATE_PATHS.indexOf(window.location.pathname) > -1) {
+    RELM.me().then(function (user) {
+      if (!user) window.location.replace("/account.html?tab=login&next=" + encodeURIComponent(window.location.pathname));
+    });
+  }
+
   /* --------------------------------------------------------------- init */
 
   RELM.me().then(function (user) {

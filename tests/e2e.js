@@ -42,6 +42,12 @@ async function req(path, opts) {
     check("GET " + p + " -> " + (expectBlocked ? 403 : 200), expectBlocked ? r.status === 403 : r.status === 200, "got " + r.status);
   }
 
+  console.log("\nAdmin sign-in route");
+  for (const p of ["/admin/login", "/admin/login.html", "/js/admin-login.js", "/account/applications"]) {
+    const r = await req(p);
+    check("GET " + p + " -> 200", r.status === 200, "got " + r.status);
+  }
+
   console.log("\nSignup validation");
   let r = await req("/api/auth/signup", { method: "POST", body: { name: "x", email: "nope", password: "123" } });
   check("rejects bad signup with field errors", r.status === 400 && r.data.errors && r.data.errors.email && r.data.errors.password, JSON.stringify(r.data));
@@ -133,6 +139,39 @@ async function req(path, opts) {
 
   r = await req("/api/applications/" + appId, { method: "PATCH", token: adminToken, body: { status: "confirmed" } });
   check("admin confirms application", r.status === 200 && r.data.application.status === "confirmed", JSON.stringify(r.data));
+
+  console.log("\nAdmin credential sign-in");
+  r = await req("/api/admin/session");
+  check("admin session rejects anonymous", r.status === 401, "got " + r.status);
+
+  r = await req("/api/admin/session", { token: memberToken });
+  check("admin session rejects members", r.status === 401, "got " + r.status);
+
+  r = await req("/api/admin/login", { method: "POST", body: { email: adminEmail, password: "definitely-wrong" } });
+  check("admin login rejects wrong password", r.status === 401, "got " + r.status);
+
+  r = await req("/api/admin/login", { method: "POST", body: { email: "nobody@example.com", password: adminPass } });
+  check("admin login rejects unknown email", r.status === 401, "got " + r.status);
+
+  const envAdminPassword = process.env.ADMIN_PASSWORD_VALUE || "test-admin-password";
+  r = await req("/api/admin/login", { method: "POST", body: { email: adminEmail, password: envAdminPassword } });
+  check(
+    "admin login issues an admin session",
+    r.status === 200 && r.data.token && r.data.user.role === "admin",
+    JSON.stringify({ status: r.status, role: r.data.user && r.data.user.role })
+  );
+  const envAdminToken = r.data && r.data.token;
+
+  if (envAdminToken) {
+    r = await req("/api/admin/session", { token: envAdminToken });
+    check("admin session accepts the env administrator", r.status === 200 && r.data.user.role === "admin", "got " + r.status);
+
+    r = await req("/api/admin/applications", { token: envAdminToken });
+    check("env administrator can read applications", r.status === 200 && Array.isArray(r.data.applications), "got " + r.status);
+  }
+
+  r = await req("/api/auth/login", { method: "POST", body: { email: adminEmail, password: envAdminPassword } });
+  check("admin account is not reachable through the public login", r.status === 401, "got " + r.status);
 
   console.log("\nWithdraw");
   r = await req("/api/applications/" + appId, { method: "DELETE", token: memberToken });

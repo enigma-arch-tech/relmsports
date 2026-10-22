@@ -153,28 +153,50 @@ function serveStatic(res, url) {
   }
   if (rel === "/") rel = "/index.html";
 
-  const target = path.join(ROOT, path.normalize(rel).replace(/^([/\\])+/, ""));
-
-  if (isBlocked(target)) {
-    res.writeHead(403, { "Content-Type": "text/plain; charset=utf-8" });
-    return res.end("Forbidden");
+  // Mirror Vercel's cleanUrls: an extensionless path resolves to the matching
+  // .html file (/admin/login -> admin/login.html). A directory path falls back
+  // to its index.html.
+  const cleanCandidates = [];
+  if (!/\/[^/]*\.[^/]*$/.test(rel)) {
+    cleanCandidates.push(rel + ".html");
+    if (!/index\.html$/.test(rel)) cleanCandidates.push(rel.replace(/\/$/, "") + "/index.html");
   }
+  cleanCandidates.push(rel);
 
-  fs.stat(target, function (err, stats) {
-    if (err || !stats.isFile()) {
-      res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
-      return res.end(
-        '<!DOCTYPE html><meta charset="utf-8"><title>Not found</title>' +
-          '<div style="font:16px/1.6 Barlow,sans-serif;padding:60px;text-align:center">' +
-          "<h1 style=\"font-family:Orbitron,sans-serif\">404</h1><p>That page does not exist. " +
-          '<a href="/index.html">Back to the homepage</a>.</p></div>'
-      );
+  const resolve = function (candidate) {
+    const normalized = path.normalize(candidate).replace(/^([/\\])+/, "");
+    return path.join(ROOT, normalized);
+  };
+
+  const tryNext = function (index) {
+    if (index >= cleanCandidates.length) return send404(res);
+
+    const target = resolve(cleanCandidates[index]);
+    if (isBlocked(target)) {
+      res.writeHead(403, { "Content-Type": "text/plain; charset=utf-8" });
+      return res.end("Forbidden");
     }
 
-    const type = MIME[path.extname(target).toLowerCase()] || "application/octet-stream";
-    res.writeHead(200, { "Content-Type": type, "Cache-Control": "no-cache" });
-    fs.createReadStream(target).pipe(res);
-  });
+    fs.stat(target, function (err, stats) {
+      if (err || !stats.isFile()) return tryNext(index + 1);
+
+      const type = MIME[path.extname(target).toLowerCase()] || "application/octet-stream";
+      res.writeHead(200, { "Content-Type": type, "Cache-Control": "no-cache" });
+      fs.createReadStream(target).pipe(res);
+    });
+  };
+
+  return tryNext(0);
+}
+
+function send404(res) {
+  res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
+  res.end(
+    '<!DOCTYPE html><meta charset="utf-8"><title>Not found</title>' +
+      '<div style="font:16px/1.6 Barlow,sans-serif;padding:60px;text-align:center">' +
+      "<h1 style=\"font-family:Orbitron,sans-serif\">404</h1><p>That page does not exist. " +
+      '<a href="/index.html">Back to the homepage</a>.</p></div>'
+  );
 }
 
 /* ---------------------------------------------------------------- handler -- */
@@ -194,6 +216,11 @@ async function handler(req, res) {
   if (pathname === "/api/relm") {
     const sub = url.searchParams.get("__p") || "";
     pathname = sub ? "/api/" + sub.replace(/^\/+/, "") : "/api";
+  }
+
+  // Mirror the vercel.json rewrite for the private applications view.
+  if (pathname === "/account/applications") {
+    url = new URL("/account-applications.html", url);
   }
 
   // API requests are answered by the shared core in lib/core.js.

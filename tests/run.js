@@ -17,8 +17,13 @@ const env = Object.assign({}, process.env, {
   PORT: String(PORT),
   RELM_DATA_DIR: tmp,
   ADMIN_EMAILS: "admin@test.local",
+  ADMIN_EMAIL: "admin@test.local",
+  ADMIN_PASSWORD: "test-admin-password",
+  ADMIN_NOTIFICATION_EMAIL: "notifications@test.local",
   SECRET: "relm-tests-only-secret"
 });
+// Email delivery must never be attempted from the test suite.
+delete env.RESEND_API_KEY;
 
 const server = spawn(process.execPath, ["server.js"], { cwd: ROOT, env: env, stdio: "ignore" });
 
@@ -56,7 +61,11 @@ async function waitReady() {
 
   const child = spawn(process.execPath, [path.join(__dirname, "e2e.js")], {
     cwd: ROOT,
-    env: Object.assign({}, env, { BASE: "http://localhost:" + PORT, ADMIN_EMAIL: "admin@test.local" }),
+    env: Object.assign({}, env, {
+      BASE: "http://localhost:" + PORT,
+      ADMIN_EMAIL: "admin@test.local",
+      ADMIN_PASSWORD_VALUE: env.ADMIN_PASSWORD
+    }),
     stdio: "inherit"
   });
 
