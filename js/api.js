@@ -70,8 +70,12 @@
         cachedUser = data.user;
         return cachedUser;
       })
-      .catch(function () {
-        setToken("");
+      .catch(function (err) {
+        /* Only discard the token when the server explicitly rejects it (401/403).
+           A network blip or 5xx must not log the user out. */
+        if (err && (err.status === 401 || err.status === 403)) {
+          setToken("");
+        }
         cachedUser = null;
         return null;
       });
@@ -100,6 +104,20 @@
         setToken("");
         cachedUser = null;
       });
+  }
+
+  /* Admin sign-in uses a dedicated, unlinked endpoint. Keeping it out of the
+     public login() flow means admin credentials never touch the account page. */
+  function adminLogin(payload) {
+    return api("/api/admin/login", { method: "POST", body: payload }).then(function (data) {
+      setToken(data.token);
+      cachedUser = data.user;
+      return data.user;
+    });
+  }
+
+  function adminSession() {
+    return api("/api/admin/session");
   }
 
   /* ------------------------------------------------------------ auth UI */
@@ -235,6 +253,8 @@
     me: me,
     signup: signup,
     login: login,
+    adminLogin: adminLogin,
+    adminSession: adminSession,
     logout: logout,
     getToken: getToken,
     refreshAuthUI: refreshAuthUI,
